@@ -1,0 +1,63 @@
+@use "scss/foundations/variables/index" as variable;
+@use "scss/foundations/functions/index" as function;
+@use "sass:list";
+@use "sass:map";
+@use "sass:math";
+
+//
+// variable.$breakpointsの中の数値を@mediaに入れてemにして返すmixin
+// @param  {array}  $_breakpoint  [sm]  variable.$breakpointsのkeyのarray
+// @param  {string} $_key         [min] min or max
+// @return {void} @media ($key-width) {}
+//
+@mixin media($_breakpoint: sm, $_key: min) {
+
+	//$_breakpointのError検出
+	@each $_has_breakpoint in $_breakpoint {
+		$_current_index: list.index($_breakpoint, $_has_breakpoint);
+		@if(map.has-key(variable.$breakpoints, $_has_breakpoint) == false) {
+			@error '第一引数の#{$_current_index}目の値 "#{$_has_breakpoint}" は無効な値です。';
+		}
+	}
+
+	//$_keyがminかmaxかのError検出
+	$key_list: min max;
+	@if(list.index($key_list, $_key) == null) {
+		@error '第二引数 "#{$_key} " は無効な値です。"min" or "max"で指定してください。'
+	}
+
+	//$_breakpointの配列が2より多いの時のError検出
+	$_breakpointLength: list.length($_breakpoint);
+	@if($_breakpointLength > 2) {
+		@error '第一引数は最大2つしか設定できません。'
+	}
+
+	//$_breakpointの１つ目の値
+	$_firstBreakpointKey: list.nth($_breakpoint, 1);
+	$_firstBreakpointValue: map.get(variable.$breakpoints, $_firstBreakpointKey);
+
+	@if($_breakpointLength == 1) {
+		@if ($_key == max) {
+			@media (#{$_key}-width: function.px($_firstBreakpointValue - .02)) {
+				@content;
+			}
+		}
+		@if ($_key == min) {
+			@media (#{$_key}-width: function.px($_firstBreakpointValue)) {
+				@content;
+			}
+		}
+
+	} @else if($_breakpointLength == 2) {
+		//$_breakpointの2つ目の値
+		$_secondBreakpointKey: list.nth($_breakpoint, 2);
+		$_secondBreakpointValue: map.get(variable.$breakpoints, $_secondBreakpointKey);
+
+		$_maxValue: math.max($_firstBreakpointValue, $_secondBreakpointValue);
+		$_minValue: math.min($_firstBreakpointValue, $_secondBreakpointValue);
+
+		@media (min-width: function.px($_minValue)) and (max-width: function.px($_maxValue - .02)) {
+			@content;
+		}
+	}
+}

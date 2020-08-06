@@ -1,0 +1,20 @@
+{
+  "name": "sass-media-mixin",
+  "version": "1.0.0",
+  "license": "MIT",
+  "scripts": {
+    "start": "NODE_ENV=development webpack -w",
+    "start-pro": "NODE_ENV=production webpack -w",
+    "build": "NODE_ENV=production webpack"
+  },
+  "devDependencies": {
+    "css-loader": "^4.2.1",
+    "extract-css-chunks-webpack-plugin": "^4.7.5",
+    "fibers": "^5.0.0",
+    "sass": "^1.26.10",
+    "sass-loader": "^9.0.3",
+    "webpack": "^4.44.1",
+    "webpack-cli": "^3.3.12",
+    "webpack-fix-style-only-entries": "^0.5.1"
+  }
+}

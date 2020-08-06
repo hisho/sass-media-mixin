@@ -1,0 +1,17 @@
+// foundationsの読み込み
+// scssの部分はwebpackの22行目aliasで定義しています。
+@use "scss/foundations/index" as *;
+
+.h1 {
+	text-align: center;
+	font-size: 8rem;
+	@include media(sm,max) {
+		color: rgba(red,.3);
+	}
+	@include media(sm lg) {
+		color: rgba(blue,.3);
+	}
+	@include media(lg) {
+		color: rgba(green,.3);
+	}
+}

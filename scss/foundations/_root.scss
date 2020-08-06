@@ -1,0 +1,8 @@
+@use "scss/foundations/variables/index" as variable;
+
+:root {
+	// breakpoints
+	@each $key, $value in variable.$breakpoints {
+		--breakpoint-#{$key}: #{map-get(variable.$breakpoints, $key)};
+	}
+}

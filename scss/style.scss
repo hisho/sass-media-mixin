@@ -1,0 +1,13 @@
+//リセットの読み込み
+@use "foundations/reset";
+@use "foundations/root";
+
+//コンポーネントの読み込み
+@use "components/hoge";
+
+body {
+	min-height: 100vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}

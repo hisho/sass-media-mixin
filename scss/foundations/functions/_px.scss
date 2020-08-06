@@ -1,0 +1,15 @@
+// 数値をpxに変換する関数です
+// @param  {Number} $target     pxにしたい数値
+// @param  {Number} $rate   [1] pxに変換する時の倍率
+// @return {Number}             数値にpxが付いた値を返します
+@function px($target, $rate: 1) {
+	@if(unit($target) != '') {
+		@error 'pxにしたい数値に単位を付けないでください';
+	} @else if(unit($rate) != '') {
+		@error 'しきい値に単位を付けないでください'
+	} @else if($target == 0) {
+		@return $target;
+	} @else {
+		@return (($target * $rate) * 1px);
+	}
+}
