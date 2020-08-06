@@ -5,7 +5,8 @@
   "scripts": {
     "start": "NODE_ENV=development webpack -w",
     "start-pro": "NODE_ENV=production webpack -w",
-    "build": "NODE_ENV=production webpack"
+    "build": "NODE_ENV=production webpack",
+    "build-dev": "NODE_ENV=development webpack"
   },
   "devDependencies": {
     "css-loader": "^4.2.1",
